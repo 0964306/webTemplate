@@ -1,0 +1,32 @@
+{
+  "name": "lanparty",
+  "version": "1.0.0",
+  "description": "Webpage for lanparty with download link for the games",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MReenen/lanParty.git"
+  },
+  "author": "Mats van Reenen <mail@matsvanreenen.nl>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MReenen/lanParty/issues"
+  },
+  "homepage": "https://github.com/MReenen/lanParty#readme",
+  "devDependencies": {
+    "ejs": "^3.1.5",
+    "gulp": "^4.0.2",
+    "gulp-clean": "^0.4.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-markdown": "^5.1.0",
+    "gulp-sass": "^4.1.0",
+    "gulp-uglify": "^3.0.2",
+    "through2": "^4.0.2",
+    "gulp-htmlmin": "^5.0.1"
+  },
+  "dependencies": {
+  }
+}
