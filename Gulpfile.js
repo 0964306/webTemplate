@@ -27,6 +27,9 @@ const http    = require('http');
 
 const PORT = 3000; // the port to run the webserver
 
+/** httpd()
+ * a test server. it will run a simple webserver on the specifyed port.
+ */
 function httpd(){
   function mime(ext){
     const mimeTypes = {
@@ -70,19 +73,27 @@ function httpd(){
   }).listen(PORT);
 }
 
+/** css()
+ * compiles sass to css.
+ * 
+ * @param {bool} minify choos whather you want the css to be minifyed or not.
+ */
 function css(minify = false){
   return function buildCSS(){
     let ret = Gulp.src('src/styles/**/*.scss')
         .pipe(Gulp.sass().on('error', Gulp.sass.logError))
     if(minify){
-      ret = ret.pipe(Gulp.cleanCSS({debug: true}, function(details) {
-        console.log(`Style ${details.name} is minifyed from ${details.stats.originalSize} to ${details.stats.minifiedSize} bytes`);
-      }))
+      ret = ret.pipe(Gulp.cleanCSS({debug: true}))
     }
     return ret.pipe(Gulp.dest('app/styles'));
   }
 }
 
+/** js()
+ * for now it only moves the js file from src to the app folder.
+ * 
+ * @param {bool} minify choos whather you want the js to be minifyed and uglifyed or not.
+ */
 function js(minify = true){
   return function buildJS(){
     var ret = Gulp.src('src/scripts/**/*.js')
@@ -92,6 +103,12 @@ function js(minify = true){
   }
 }
 
+//TODO: write custom md compiler to allow setting link wat template to use
+/** md()
+ * compiles the markdown to html and inserts it into _template.ejs.
+ * 
+ * @param {bool} minify choos whather you want the html to be minifyed or not.
+ */
 function md(minify = true){
   return function buildMD(){
     var ret = Gulp.src('src/**/*.md')
@@ -101,7 +118,7 @@ function md(minify = true){
             const data = {
               "body": file.contents.toString()
             }
-            const contents = await ejs.renderFile("./src/_tempate.ejs", data);
+            const contents = await ejs.renderFile("./src/_tempate.ejs", data, { root: __dirname + "/src"});
             file.contents = Buffer.from(contents);
             file.extname = '.html';
             cb(null, file);
@@ -119,10 +136,18 @@ function md(minify = true){
   }
 }
 
+/**  build()
+ * build all the content (css, js and md)
+ * 
+ * @param {bool} minify choos whather you want to minify or not.
+ */
 function build(minify = true){
   return Gulp.parallel(css(minify), js(minify), md(minify))
 }
 
+/** clean()
+ * cleanup all the build files to start all over again whith the build process.
+ */
 function clean(){
   return Gulp.src(['app'], {read: false, allowEmpty: true})
       .pipe(Gulp.clean())
