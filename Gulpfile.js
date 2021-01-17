@@ -136,13 +136,20 @@ function md(minify = true){
   }
 }
 
+/** assets()
+ * copys assets to app.
+ */
+function assets(){
+  return Gulp.src('src/assets/*').pipe(Gulp.dest('app/assets'));
+}
+
 /**  build()
  * build all the content (css, js and md)
  * 
  * @param {bool} minify choos whather you want to minify or not.
  */
 function build(minify = true){
-  return Gulp.parallel(css(minify), js(minify), md(minify))
+  return Gulp.parallel(css(minify), js(minify), md(minify), assets)
 }
 
 /** clean()

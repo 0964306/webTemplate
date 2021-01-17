@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Ubuntu&display=swap');
 
 $main-color: #222;
+$second-color: #333;
 $oposit-color: #eee;
 $accent-color: #7d7;
 
@@ -31,9 +32,10 @@ header {
 
   ul{
     list-style: none;
-    padding-right: 50px;
+    padding: 0 50px 0 0;
     margin: 0;
     display: inline-block;
+    user-select: none;
 
     font-family: 'Ubuntu', sans-serif;
     font-size: 18px;
@@ -42,11 +44,47 @@ header {
     .menuLable{
       display: inline-block;
     }
+    .menuLable.sub{
+      padding: 15px 5px;
+
+      a {
+        display: inline-block;
+        padding: 0;
+      }
+    }
 
     li{
       display: inline-block;
       height: 50px;
     }
+
+    li.open{
+      .menuLable {
+        background-color: $second-color;
+      }
+      ul {
+        display: block;
+      }
+    }
+
+    ul{
+      display: none;
+      position: absolute;
+      text-align: center;
+      padding: 0;
+      margin-left: 10px;
+      background-color: $second-color;
+      border-bottom-right-radius: 5px;
+      border-bottom-left-radius: 5px;
+      
+      li {
+        display: block;
+      }
+    }
+  }
+
+  .menuDropIcon{
+    stroke: $accent-color;
   }
 
   a {

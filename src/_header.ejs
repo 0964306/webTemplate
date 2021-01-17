@@ -2,7 +2,12 @@
 var logo = null;
 var menu = {
   "Gratis Games": "/",
-  "Betaalde Games": "/betaalt.html"
+  "Betaalde Games": "/betaalt.html",
+  "Games": {
+    "index": "/",
+    "Gratis": "/",
+    "Betaald": "/betaalt.html"
+  }
 }
 
 var first = true;
@@ -15,11 +20,23 @@ function menuItem(cntnt, lable, separator){
       <span class="menuLable"><a href="<%= cntnt %>"><%= lable %></a></span>
     </li>
 <%_ }else{ _%>
-    <li>
-      <span class="menuLable"><%= lable %></span>
-      <ul>
+    <li data-hassub="true">
+      <%_ if(typeof separator == "string" && separator.length > 0){ _%>
+        <span class="menuSeparator"><%= separator %></span>
+      <% } _%>
+      <span class="menuLable sub">
+        <% if(typeof cntnt.index !== 'undefined'){ %>
+          <a href="<%= cntnt.index %>"><%= lable %></a>
+        <% }else{ %>
+          <%= lable %>
+        <% } %>
+        <img class="menuDropIcon" src='/assets/menuArrow.svg' alt="&or;" />
+      </span>
+      <ul class="submenu">
       <%_ for(subLable in cntnt){ _%>
-        <%= menuItem(cntnt[subLable], subLable, '') _%>
+        <% if(subLable != 'index'){ %>
+          <%= menuItem(cntnt[subLable], subLable, '') _%>
+        <% } %>
       <% } _%>
       </ul>
     </li>
@@ -32,7 +49,7 @@ _%>
   <img id="headerLogo" class="logo" src="<%= logo %>" />
 <%_ } _%>
   <nav>
-    <ul>
+    <ul id="menu">
 <%_
 var sep = '';
 for(item in menu){ _%>
