@@ -1,0 +1,43 @@
+<%
+var logo = null;
+var menu = {
+  "Gratis Games": "/",
+  "Betaalde Games": "/betaalt.html"
+}
+
+var first = true;
+function menuItem(cntnt, lable, separator){
+  if(typeof cntnt == "string"){ _%>
+    <li>
+      <%_ if(typeof separator == "string" && separator.length > 0){ _%>
+        <span class="menuSeparator"><%= separator %></span>
+      <% } _%>
+      <span class="menuLable"><a href="<%= cntnt %>"><%= lable %></a></span>
+    </li>
+<%_ }else{ _%>
+    <li>
+      <span class="menuLable"><%= lable %></span>
+      <ul>
+      <%_ for(subLable in cntnt){ _%>
+        <%= menuItem(cntnt[subLable], subLable, '') _%>
+      <% } _%>
+      </ul>
+    </li>
+<%_ }
+}
+
+_%>
+<header>
+<%_ if(logo !== null){ _%>
+  <img id="headerLogo" class="logo" src="<%= logo %>" />
+<%_ } _%>
+  <nav>
+    <ul>
+<%_
+var sep = '';
+for(item in menu){ _%>
+<%= menuItem(menu[item], item, sep) %>
+<%_ sep = '|' } _%>
+    </ul>
+  </nav>
+</header>
