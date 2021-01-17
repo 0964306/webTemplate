@@ -21,7 +21,7 @@ Draait op elke aardapel, geen instalatie nodig.
 
 Je kent het warschijnlijk wel.
 
-Niet alle aardepols zijn goed, maar een tomaat is voldoende.
+Niet alle aardapels zijn goed, maar een tomaat is voldoende.
 
 [download (steam)][tf2-download] [homepage][tf2-home]
 
@@ -49,7 +49,7 @@ Beetje als Age of Empires.
 
 Is nog in alpha, maar lijkt voldoende te werken.
 
-Niet alle aardepols zijn goed, maar een tomaat is voldoende.
+Niet alle aardapels zijn goed, maar een tomaat is voldoende.
 
 [download win][zeroad-win] [download mac][zeroad-mac] [download linux][zeroad-linux] [homepage][zeroad-home]
 
