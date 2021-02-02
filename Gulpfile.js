@@ -25,7 +25,10 @@ const fs      = require('fs');
 const http    = require('http');
 
 
+const autogenerateMunu = true; // automatacly generate the menu structure
 const PORT = 3000; // the port to run the webserver
+
+const menu = {} // only used if autogenerateMunu is false
 
 /** httpd()
  * a test server. it will run a simple webserver on the specifyed port.
@@ -103,6 +106,8 @@ function js(minify = true){
   }
 }
 
+var sitemap = {};
+
 //TODO: write custom md compiler to allow setting link wat template to use
 /** md()
  * compiles the markdown to html and inserts it into _template.ejs.
@@ -110,13 +115,79 @@ function js(minify = true){
  * @param {bool} minify choos whather you want the html to be minifyed or not.
  */
 function md(minify = true){
-  return function buildMD(){
+
+  function generateSitemap(){
+    function pritifyName(name){
+      name = name.charAt(0).toUpperCase() + name.slice(1);
+      name = name.replace(/\-/g, ' ');
+      return name;
+    }
+
+    var ret = Gulp.src('src/**/*.md')
+      .pipe(through.obj(async function addToSitemap(file, enc, cb){
+        try{
+          // get path
+          let url = file.path.substr(__dirname.length + 4)
+          url = url.substr(0, url.length - file.basename.length - 1)
+          url = url.replace('\\', '/');
+          let path = url.slice(1).split('/');
+          for (let i = 0; i < path.length; i++) {
+            path[i] = pritifyName(path[i]);
+          }
+
+          // get page title
+          let basename = file.basename.split('.')
+          basename.pop();
+          basename = basename.join('.');
+          if(basename == 'index'){
+            url += '/index.html'
+            if(path[0] == ''){
+              basename = "Home";
+            }
+          }else{
+            url += `/${basename}.html`
+            basename = pritifyName(basename);
+          }
+          console.log("found file", basename, "in path", path);
+          switch(path.length){
+            case 1:
+              if(path[0] == ''){
+                sitemap[basename] = url;
+              }else{
+                if(typeof sitemap[path[0]] == 'undefined')
+                  sitemap[path[0]] = {}
+                sitemap[path[0]][basename] = url;
+              }
+              break;
+            case 2:
+              if(typeof sitemap[path[0]] == 'undefined')
+                sitemap[path[0]] = {}
+              if(typeof sitemap[path[0]][path[1]] == 'undefined')
+                sitemap[path[0]][path[1]] = {}
+              sitemap[path[0]][path[1]][basename] = url;
+              break;
+            default:
+              console.warn('WARN: page to deep for sitemap', path, file.basename)
+          }
+          cb();
+        }catch(e){
+          console.error('Some error occeer while adding page to sitemap');
+          console.error(e);
+          cb('Some error occerd while page to sitemap');
+        }
+      }))
+    setTimeout(()=>{console.log(sitemap)}, 1000)
+    return ret;
+  }
+
+  function buildMD(){
     var ret = Gulp.src('src/**/*.md')
         .pipe(Gulp.markdown())
         .pipe(through.obj(async function buildEJS_be(file, enc, cb){
           try{
             const data = {
-              "body": file.contents.toString()
+              "body": file.contents.toString(),
+              "menu": (autogenerateMunu) ? sitemap : menu
             }
             const contents = await ejs.renderFile("./src/_tempate.ejs", data, { root: __dirname + "/src"});
             file.contents = Buffer.from(contents);
@@ -133,6 +204,15 @@ function md(minify = true){
         collapseWhitespace: true
       }));
     return ret.pipe(Gulp.dest('app'));
+  }
+
+  if(autogenerateMunu){
+    return Gulp.series(
+      generateSitemap,
+      buildMD
+    )
+  }else{
+    return buildMD;
   }
 }
 
