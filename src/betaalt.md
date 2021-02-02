@@ -2,17 +2,20 @@
 
 Leuk dat je er bent! Hier kan je de game downloaden die je wilt gaan spelen.
 
-## one account many players
+## klaar om te testen
 
-### Jackbox
+### Amoung Us - &euro;3,99
 
-In brouser online party/famaly games.  
-Ongeveer 8 spelers, is afhankelijk van het spel.
+Play with 4-10 player as you attempt to prepare your spaceship for departure, but beware as one or more random players among the Crew are Impostors bent on killing everyone!
 
-[homepage](https://www.jackboxgames.com)
+[steam](https://store.steampowered.com/app/945360/Among_Us/)
 
-#### prijs
+## nog wat te doen
 
-Eenmalige betaling een partypack is ongeveer &euro;23. induviduele games kunnen ook gekocht worden voor minder.
+### Micraft - &euro;23,95
 
-[shop](https://store.steampowered.com/search/products/the-jackbox-party-pack-pc-mac-linux-code?developer=Jackbox%20Games%2C%20Inc.)
+Nog leuke server vinden
+
+[buy](https://www.minecraft.net/en-us/store/minecraft-java-edition)
+
+

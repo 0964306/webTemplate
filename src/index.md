@@ -2,15 +2,13 @@
 
 Leuk dat je er bent! Hier kan je de game downloaden die je wilt gaan spelen.
 
-## suported games
+## klaar om te testen
 
 ---
 
 ### Xonotic
 
-Schieten en hopen dat je raakt :)
-
-Draait op elke aardapel, geen instalatie nodig.
+Xonotic is an addictive, arena-style first person shooter with crisp movement and a wide array of weapons. It combines intuitive mechanics with in-your-face action to elevate your heart rate.
 
 [download][xonotic-win] [homepage][xonotic-home]
 
@@ -28,7 +26,13 @@ Niet alle aardapels zijn goed, maar een tomaat is voldoende.
 [tf2-download]: https://store.steampowered.com/app/440/Team_Fortress_2/
 [tf2-home]: https://www.teamfortress.com/index.php
 
-## not suported yet
+### Jackbox
+
+speel spellen samen via de browser.
+
+[join room](https://jackbox.tv/)
+
+## nog niet klaar
 
 ---
 
